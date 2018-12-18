@@ -67,7 +67,7 @@ function clearTasks() {
   //! one way
   //   taskList.innerHTML = "";
 
-  //! Faster Way
+  //! Another Way
   //  if there is a firstChild (li) we want to remove it
   while (taskList.firstChild) {
     taskList.removeChild(taskList.firstChild);
@@ -86,7 +86,7 @@ function filterTasks(e) {
     const item = task.firstChild.textContent;
 
     if (item.toLocaleLowerCase().indexOf(text) != -1) {
-      task.getElementsByClassName.disply = "block";
+      task.getElementsByClassName.display = "block";
     } else {
       task.style.display = "none";
     }
