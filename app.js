@@ -12,6 +12,12 @@ loadEventListeners();
 function loadEventListeners() {
   // Add task event
   form.addEventListener("submit", addTask);
+  //   Remove task event
+  taskList.addEventListener("click", removeTask);
+  //   Clear task event
+  clearBtn.addEventListener("click", clearTasks);
+  //   Filter tasks event
+  filter.addEventListener("keyup", filterTasks);
 }
 
 // Add Task
@@ -42,8 +48,49 @@ function addTask(e) {
   //Clear Input
   taskInput.value = "";
 
-  
-  console.log(li);
+  //   console.log(li);
 
   e.preventDefault();
+}
+
+// Remove Task - parentElement
+function removeTask(e) {
+  if (e.target.parentElement.classList.contains("delete-item")) {
+    if (confirm("Are You sure")) {
+      e.target.parentElement.parentElement.remove();
+    }
+  }
+}
+
+// Clear Tasks
+function clearTasks() {
+  //! one way
+  //   taskList.innerHTML = "";
+
+  //! Faster Way
+  //  if there is a firstChild (li) we want to remove it
+  while (taskList.firstChild) {
+    taskList.removeChild(taskList.firstChild);
+  }
+
+  //   https://jsperf.com/innerhtml-vs-removechild/47
+}
+
+// Filter Tasks
+function filterTasks(e) {
+  // access to what is being typed
+  const text = e.target.value.toLowerCase();
+
+  // forEach can be used because querySelectorAll return a nodeList
+  document.querySelectorAll(".collection-item").forEach(function(task) {
+    const item = task.firstChild.textContent;
+
+    if (item.toLocaleLowerCase().indexOf(text) != -1) {
+      task.getElementsByClassName.disply = "block";
+    } else {
+      task.style.display = "none";
+    }
+  });
+
+  //   console.log(text);
 }
